@@ -3,18 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   partition_p2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aben-dhi <aben-dhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: htouil <htouil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 15:37:28 by aben-dhi          #+#    #+#             */
-/*   Updated: 2023/12/24 17:05:11 by aben-dhi         ###   ########.fr       */
+/*   Updated: 2023/12/25 23:39:08 by htouil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-char *get_f(char *line, t_map *map)
+char	*get_f(char *line, t_map *map)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (line[i] != '\0')
 	{
 		if (line[i] == 'F')
@@ -27,9 +29,11 @@ char *get_f(char *line, t_map *map)
 	return (0);
 }
 
-char *get_c(char *line, t_map* map)
+char	*get_c(char *line, t_map *map)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (line[i] != '\0')
 	{
 		if (line[i] == 'C')
@@ -44,11 +48,14 @@ char *get_c(char *line, t_map* map)
 
 int	save_fc(t_map *map)
 {
-	int i = 0;
+	int	i;
+	int	j;
+
+	i = 0;
 	// int max = 0; 
 	while (i < map->height && map->file[i])
 	{
-		int j = 0;
+		j = 0;
 		while (map->file[i][j] != '\0')
 		{
 			// max = get_f(map->file[i], map);

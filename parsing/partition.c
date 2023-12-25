@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   partition.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aben-dhi <aben-dhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: htouil <htouil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 19:02:08 by aben-dhi          #+#    #+#             */
-/*   Updated: 2023/12/02 15:36:50 by aben-dhi         ###   ########.fr       */
+/*   Updated: 2023/12/25 23:37:59 by htouil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,15 @@ char	*savewest(t_map *map, int i, int j)
 	return (NULL);
 }
 
-void save_dir(t_map *map)
+void	save_dir(t_map *map)
 {
-	int i = 0;
+	int	i;
+	int	j;
+
+	i = 0;
 	while (i < map->height && map->file[i])
 	{
-		int j = 0;
+		j = 0;
 		while (map->file[i][j] != '\0')
 		{
 			if (map->file[i][j] == 'N' && map->file[i][j + 1] == 'O')

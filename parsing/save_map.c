@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aben-dhi <aben-dhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: htouil <htouil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 15:42:20 by aben-dhi          #+#    #+#             */
-/*   Updated: 2023/12/09 17:41:45 by aben-dhi         ###   ########.fr       */
+/*   Updated: 2023/12/25 23:39:36 by htouil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,30 +69,32 @@
 //we need to save the map in map->map
 //now map->height is the number of lines in the map which is the initial height minus pos
 //we need to save the width of the map in map->width
-void    save_map(t_map *map, int pos)
+void	save_map(t_map *map, int pos)
 {
-    // pos++;
-    int i = 0;
-    // printf("pos = %d\n", pos);
-    map->map = malloc(sizeof(char *) * (map->height - pos + 1));
-    if (!map->map)
-        return ;
-    map->width = 0;
-    while (pos <= map->height && map->file[pos])
-    {
-        if (map->file[pos][0] == '\0' || map->file[pos][0] == ' ')
-            pos++;
-        // printf("%d\n", i);
-        // printf("map->file[%d] = %s\n", pos, map->file[pos]);
-        // else
-            map->map[i] = ft_strdup(map->file[pos]);
-        if (map->width < ft_strlen1(map->file[pos]))
-            map->width = ft_strlen1(map->file[pos]);
-        pos++;
-        i++;
-    }
-    map->height = i;
-    map->map[i] = NULL;
+	// pos++;
+	int	i;
+
+	i = 0;
+	// printf("pos = %d\n", pos);
+	map->map = malloc(sizeof(char *) * (map->height - pos + 1));
+	if (!map->map)
+		return ;
+	map->width = 0;
+	while (pos <= map->height && map->file[pos])
+	{
+		if (map->file[pos][0] == '\0' || map->file[pos][0] == ' ')
+			pos++;
+		// printf("%d\n", i);
+		// printf("map->file[%d] = %s\n", pos, map->file[pos]);
+		// else
+		map->map[i] = ft_strdup(map->file[pos]);
+		if (map->width < ft_strlen1(map->file[pos]))
+			map->width = ft_strlen1(map->file[pos]);
+		pos++;
+		i++;
+	}
+	map->height = i;
+	map->map[i] = NULL;
 }
 
 // void save_map(t_map *map, int pos) {
@@ -134,32 +136,32 @@ void    save_map(t_map *map, int pos)
 //we already have the height updated in map->height
 void    save_tmp(t_map *map)
 {
-    int i = 0;
-    int j = 0;
-    int k = 0;
-    
-    map->tmp = malloc(sizeof(char *) * (map->height + 1));
-    if (!map->tmp)
-        return ;
-    while (i < map->height && map->map[i])
-    {
-        j = 0;
-        k = 0;
-        map->tmp[i] = malloc(sizeof(char) * (ft_strlen1(map->map[i]) + 1));
-        if (!map->tmp[i])
-            return ;
-        while (map->map[i][j] != '\0' && map->map[i])
-        {
-            if (!ft_isspace(map->map[i][j]))
-            {
-                map->tmp[i][k] = map->map[i][j];
-                k++;
-            }
-            j++;
-        }
-        map->tmp[i][k] = '\0';
-        i++;
-    }
-    map->tmp[i] = NULL;
+	int i = 0;
+	int j = 0;
+	int k = 0;
+	
+	map->tmp = malloc(sizeof(char *) * (map->height + 1));
+	if (!map->tmp)
+		return ;
+	while (i < map->height && map->map[i])
+	{
+		j = 0;
+		k = 0;
+		map->tmp[i] = malloc(sizeof(char) * (ft_strlen1(map->map[i]) + 1));
+		if (!map->tmp[i])
+			return ;
+		while (map->map[i][j] != '\0' && map->map[i])
+		{
+			if (!ft_isspace(map->map[i][j]))
+			{
+				map->tmp[i][k] = map->map[i][j];
+				k++;
+			}
+			j++;
+		}
+		map->tmp[i][k] = '\0';
+		i++;
+	}
+	map->tmp[i] = NULL;
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aben-dhi <aben-dhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: htouil <htouil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 19:15:50 by aben-dhi          #+#    #+#             */
-/*   Updated: 2023/11/28 17:28:46 by aben-dhi         ###   ########.fr       */
+/*   Updated: 2023/12/24 19:36:35 by htouil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ char	*ft_strjoin1(char *left_str, char *buff)
 	}
 	if (!left_str || !buff)
 		return (NULL);
-	str = malloc(sizeof(char) * ((ft_strlen1(left_str) + ft_strlen1(buff)) + 1));
+	str = malloc(sizeof(char) \
+	*((ft_strlen1(left_str) + ft_strlen1(buff)) + 1));
 	if (str == NULL)
 		return (NULL);
 	i = -1;

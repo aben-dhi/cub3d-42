@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aben-dhi <aben-dhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: htouil <htouil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:41:37 by aben-dhi          #+#    #+#             */
-/*   Updated: 2023/12/07 13:25:26 by aben-dhi         ###   ########.fr       */
+/*   Updated: 2023/12/24 19:49:25 by htouil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ typedef struct s_data
 
 typedef struct s_map
 {
-	int		width;
 	int		height;
+	int		width;
 	char	**file;
 	char	*no;
 	char	*so;
@@ -40,7 +40,7 @@ typedef struct s_map
 	char	*f;
 	char	*c;
 	char	**map;
-	char 	**tmp;
+	char	**tmp;
 	int		posx;
 	int		posy;
 }	t_map;
@@ -49,8 +49,8 @@ int		read_map(int fd, t_map *map, char *path);
 void	save_dir(t_map *map);
 int		save_fc(t_map *map);
 void	save_map(t_map *map, int pos);
-int 	checkwalls(int x, int y, t_map *map);
-void    save_tmp(t_map *map);
+int		checkwalls(int x, int y, t_map *map);
+void	save_tmp(t_map *map);
 // int    	last_pos(t_map *map);
 
 //utils:
