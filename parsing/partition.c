@@ -6,7 +6,7 @@
 /*   By: htouil <htouil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 19:02:08 by aben-dhi          #+#    #+#             */
-/*   Updated: 2023/12/25 23:37:59 by htouil           ###   ########.fr       */
+/*   Updated: 2023/12/26 22:13:00 by htouil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	save_dir(t_map *map)
 	int	j;
 
 	i = 0;
-	while (i < map->height && map->file[i])
+	while (i < map->rows && map->file[i])
 	{
 		j = 0;
 		while (map->file[i][j] != '\0')

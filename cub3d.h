@@ -6,7 +6,7 @@
 /*   By: htouil <htouil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:41:37 by aben-dhi          #+#    #+#             */
-/*   Updated: 2023/12/24 19:49:25 by htouil           ###   ########.fr       */
+/*   Updated: 2024/01/01 18:57:35 by htouil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ typedef struct s_data
 
 typedef struct s_map
 {
-	int		height;
-	int		width;
+	int		rows;
+	int		*columns;
 	char	**file;
 	char	*no;
 	char	*so;
@@ -45,16 +45,31 @@ typedef struct s_map
 	int		posy;
 }	t_map;
 
-int		read_map(int fd, t_map *map, char *path);
-void	save_dir(t_map *map);
-int		save_fc(t_map *map);
-void	save_map(t_map *map, int pos);
-int		checkwalls(int x, int y, t_map *map);
-void	save_tmp(t_map *map);
+// int		read_map(int fd, t_map *map, char *path);
+// void	save_dir(t_map *map);
+// int		save_fc(t_map *map);
+// void	save_map(t_map *map, int pos);
+// int		checkwalls(int x, int y, t_map *map);
+// void	save_tmp(t_map *map);
 // int    	last_pos(t_map *map);
 
-//utils:
+//cub3d functions:
+void	read_map(int fd, t_map *map);
+int		check_map_content(t_map *map);
+int		check_map_player(t_map *map);
+int		check_map_frame0(t_map *map);
+int		check_map_frame1(t_map *map);
+int		check_map_frame2(t_map *map);
+void	display_map_errors(t_map *map);
 
+//utility functions:
 void	*ft_realloc(void *ptr, int size);
+char	*ft_datacpy(char *src);
+char	*skip_spaces(char *str);
+int		avoid_spaces(char *str);
+int		reverse_avoid_spaces(char *str);
+int		check_empty_spaces(char *str);
+void	display_dnl_error(char *lmap);
+void	free_data(t_map *map);
 
 #endif

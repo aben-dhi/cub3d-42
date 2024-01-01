@@ -6,7 +6,7 @@
 /*   By: htouil <htouil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 15:37:28 by aben-dhi          #+#    #+#             */
-/*   Updated: 2023/12/25 23:39:08 by htouil           ###   ########.fr       */
+/*   Updated: 2023/12/26 22:13:00 by htouil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	save_fc(t_map *map)
 
 	i = 0;
 	// int max = 0; 
-	while (i < map->height && map->file[i])
+	while (i < map->rows && map->file[i])
 	{
 		j = 0;
 		while (map->file[i][j] != '\0')
@@ -75,7 +75,7 @@ int	save_fc(t_map *map)
 // int	last_pos(t_map *map)
 // {
 // 	int i = 0;
-// 	while (i < map->height && map->file[i])
+// 	while (i < map->rows && map->file[i])
 // 	{
 // 		int j = 0;
 // 		while (map->file[i][j] != '\0')

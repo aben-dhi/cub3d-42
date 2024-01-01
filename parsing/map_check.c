@@ -6,7 +6,7 @@
 /*   By: htouil <htouil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 17:33:03 by aben-dhi          #+#    #+#             */
-/*   Updated: 2023/12/25 23:55:44 by htouil           ###   ########.fr       */
+/*   Updated: 2023/12/30 19:32:54 by htouil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,49 +49,44 @@
 // 	return (1);
 // }
 
-int	read_map(int fd, t_map *map, char *path)
-{
-	char	*line;
-	char	*count;
-	int		i;
+// int	read_map(int fd, t_map *map, char *path)
+// {
+// 	char	*line;
+// 	char	*count;
+// 	int		i;
 
-	i = 0;
-	count = NULL;
-	if (get_next_line(fd) == NULL)
-	{
-		ft_putstr_fd("Error\nInvalid file!\n", 2);
-		return (-1);
-	}
-	while ((count = get_next_line(fd)) && *count != '\0')
-	{
-		map->height++;
-		free(count);
-	}
-	close(fd);
-	map->file = malloc(sizeof(char *) * (map->height + 1));
-	if (!map->file)
-		return (-1);
-	fd = open(path, O_RDONLY);
-	if (fd == -1)
-		return (-1);
-	line = NULL;
-	while ((line = get_next_line(fd)) && *line != '\0')
-	{
-		map->file[i] = ft_strdup(line);
-		i++;
-		free(line);
-	}
-	// Print the map
-	// int j = 0;
-	// while (j < map->height)
-	// {
-	//     printf("map[%d] = %s\n", j, map->file[j]);
-	//     j++;
-	// }
-	return (1);
-}
-
-int	read_map(char *file, t_map *map)
-{
-	
-}
+// 	i = 0;
+// 	count = NULL;
+// 	if (get_next_line(fd) == NULL)
+// 	{
+// 		ft_putstr_fd("Error\nInvalid file!\n", 2);
+// 		return (-1);
+// 	}
+// 	while ((count = get_next_line(fd)) && *count != '\0')
+// 	{
+// 		map->rows++;
+// 		free(count);
+// 	}
+// 	close(fd);
+// 	map->file = malloc(sizeof(char *) * (map->rows + 1));
+// 	if (!map->file)
+// 		return (-1);
+// 	fd = open(path, O_RDONLY);
+// 	if (fd == -1)
+// 		return (-1);
+// 	line = NULL;
+// 	while ((line = get_next_line(fd)) && *line != '\0')
+// 	{
+// 		map->file[i] = ft_strdup(line);
+// 		i++;
+// 		free(line);
+// 	}
+// 	// Print the map
+// 	// int j = 0;
+// 	// while (j < map->rows)
+// 	// {
+// 	//     printf("map[%d] = %s\n", j, map->file[j]);
+// 	//     j++;
+// 	// }
+// 	return (1);
+// }

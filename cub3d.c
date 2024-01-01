@@ -6,7 +6,7 @@
 /*   By: htouil <htouil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:42:06 by aben-dhi          #+#    #+#             */
-/*   Updated: 2023/12/25 23:52:42 by htouil           ###   ########.fr       */
+/*   Updated: 2023/12/31 20:32:14 by htouil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 //
 void	init_params(t_map *map)
 {
-	map->height = 0;
-	map->width = 0;
+	map->rows = 0;
+	map->columns = 0;
 	map->file = NULL;
 	map->no = NULL;
 	map->so = NULL;
@@ -45,7 +45,7 @@ int	check_ext(char *file)
 	return (0);
 }
 
-int	main(int argc, char **argv)
+int	main(int ac, char **av)
 {
 	t_map	*map;
 	int		fd;
@@ -53,40 +53,43 @@ int	main(int argc, char **argv)
 	map = malloc(sizeof(t_map));
 	if (!map)
 		return (1);
-	if (argc == 2)
+	if (ac == 2)
 	{
-		if (check_ext(argv[1]))
+		if (check_ext(av[1]))
 		{
 			ft_putstr_fd("Error\nInvalid file extension!\n", 2);
 			free(map);
 			return (1);
 		}
 		init_params(map);
-		fd = open(argv[1], O_RDONLY);
+		fd = open(av[1], O_RDONLY);
 		if (fd == -1)
 			return (1);
-		if (!read_map(fd, map, argv[1]))
-		{
-			ft_putstr_fd("Error\nInvalid map!\n", 2);
-			return (1);
-		}
-		save_dir(map);
+		read_map(fd, map); //LAST MODIFICATION HERE!!!
+		display_map_errors(map);
+		// save_dir(map);
 		// save_fc(map);
-		int pos = save_fc(map) + 2;
-		save_map(map, pos);
-		save_tmp(map);
-		// printf("height = %d\n", map->height);
-		if (checkwalls(map->posx, map->posy, map) == 0)
-			printf("Error\nInvalid map\n");
-		close(fd);
+		// int pos = save_fc(map) + 2;
+		// save_map(map, pos);
+		// save_tmp(map);
+		// // printf("rows = %d\n", map->rows);
+		// if (checkwalls(map->posx, map->posy, map) == 0)
+		// 	printf("Error\nInvalid map\n");
+		// close(fd);
+		// printf("rows=%d\n", map->rows);
 		int j = 0;
-		while (j < map->height)
+		printf("rows: %d\n", map->rows);
+		while (j < map->rows)
 		{
-			printf("%s", map->map[j]);
+			printf("%s\n", map->map[j]);
 			j++;
 		}
+		// printf("line 0: (%s) [len=%d]\n", map->map[0], ft_strlen1(map->map[0]));
+		// printf("1: (%c)\n", map->map[0][0]);
+		// printf("line 10: (%s) [len=%d]\n", map->map[10], ft_strlen1(map->map[10]));
+		// printf("2: (%c)\n", map->map[map->rows - 1][ft_strlen1(map->map[map->rows - 1]) - 1]);
 		// int i = 0;
-		// while (i < map->height)
+		// while (i < map->rows)
 		// {
 		// 	printf("%s\n", map->tmp[i]);
 		// 	i++;
@@ -101,3 +104,90 @@ int	main(int argc, char **argv)
 	free(map);
 	return (0);
 }
+
+// int	main(void)
+// {
+// 	char	*line;
+// 	int		fd;
+
+// 	fd = open("text.txt", O_RDONLY);
+// 	line = get_next_line(fd);
+// 	if (!line)
+// 	{
+// 		printf("shit");
+// 		return (1);
+// 	}
+// 	while (1)
+// 	{
+// 		printf("%s", line);
+// 		free(line);
+// 		line = get_next_line(fd);
+// 		if (!line)
+// 		{
+// 			printf("shit");
+// 			return (1);
+// 		}
+// 	}
+// 	return (0);
+// }
+
+// int	main(void)
+// {
+// 	char	*line;
+// 	int		fd;
+
+// 	fd = open("text.txt", O_RDONLY);
+// 	line = get_next_line(fd);
+// 	if (line)
+// 		printf("1: %s(yes)\n", line);
+// 	else
+// 		printf("1: %s(no)\n", line);
+// 	free(line);
+// 	line = get_next_line(fd);
+// 	if (line)
+// 		printf("2: %s(yes)\n", line);
+// 	else
+// 		printf("2: %s(no)\n", line);
+// 	free(line);
+// 	line = get_next_line(fd);
+// 	if (line)
+// 		printf("3: %s(yes)\n", line);
+// 	else
+// 		printf("3: %s(no)\n", line);
+// 	free(line);
+// 	line = get_next_line(fd);
+// 	if (line)
+// 		printf("4: %s(yes)\n", line);
+// 	else
+// 		printf("4: %s(no)\n", line);
+// 	free(line);
+// 	close(fd);
+// 	return (0);
+// }
+
+// int	main(void)
+// {
+// 	int		i;
+// 	int		*len = NULL;
+// 	int		fd;
+// 	char	*line;
+
+// 	fd = open("text.txt", O_RDONLY);
+// 	i = 0;
+// 	line = get_next_line(fd);
+// 	printf("ZEBBI");
+// 	// len = malloc (3 * sizeof(int));
+// 	len = ft_calloc(3, 4);
+// 	len[i] = ft_strlen1(line) - 1;
+// 	printf("1: %s(%d)\n", line, len[i++]);
+// 	free(line);
+// 	line = get_next_line(fd);
+// 	len[i] = ft_strlen1(line) - 1;
+// 	printf("2: %s(%d)\n", line, len[i++]);
+// 	free(line);
+// 	line = get_next_line(fd);
+// 	len[i] = ft_strlen1(line) - 1;
+// 	printf("3: %s(%d)\n", line, len[i++]);
+// 	free(line);
+// 	close(fd);
+// }

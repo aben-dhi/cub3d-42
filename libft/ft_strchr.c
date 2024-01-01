@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aben-dhi <aben-dhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: htouil <htouil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 18:03:31 by aben-dhi          #+#    #+#             */
-/*   Updated: 2022/10/05 15:22:19 by aben-dhi         ###   ########.fr       */
+/*   Updated: 2023/12/27 16:52:55 by htouil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,7 @@ char	*ft_strchr(const char *s, int c)
 	while (b[i] != a)
 	{
 		if (b[i] == '\0')
-		{
 			return (NULL);
-		}
 		i++;
 	}
 	return ((char *)b + i);
