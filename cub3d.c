@@ -6,7 +6,7 @@
 /*   By: htouil <htouil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:42:06 by aben-dhi          #+#    #+#             */
-/*   Updated: 2023/12/31 20:32:14 by htouil           ###   ########.fr       */
+/*   Updated: 2024/01/03 17:55:03 by htouil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,33 +50,28 @@ int	main(int ac, char **av)
 	t_map	*map;
 	int		fd;
 
-	map = malloc(sizeof(t_map));
-	if (!map)
-		return (1);
 	if (ac == 2)
 	{
+		map = malloc(sizeof(t_map));
+		if (!map)
+			return (1);
 		if (check_ext(av[1]))
 		{
-			ft_putstr_fd("Error\nInvalid file extension!\n", 2);
 			free(map);
-			return (1);
+			return (ft_putstr_fd("Error\nInvalid file extension!\n", 2), 1);
 		}
 		init_params(map);
 		fd = open(av[1], O_RDONLY);
 		if (fd == -1)
 			return (1);
-		read_map(fd, map); //LAST MODIFICATION HERE!!!
+		read_map(fd, map);
 		display_map_errors(map);
-		// save_dir(map);
-		// save_fc(map);
-		// int pos = save_fc(map) + 2;
-		// save_map(map, pos);
-		// save_tmp(map);
-		// // printf("rows = %d\n", map->rows);
-		// if (checkwalls(map->posx, map->posy, map) == 0)
-		// 	printf("Error\nInvalid map\n");
-		// close(fd);
-		// printf("rows=%d\n", map->rows);
+		// printf("%s\n", map->no);
+		// printf("%s\n", map->so);
+		// printf("%s\n", map->we);
+		// printf("%s\n", map->ea);
+		// printf("%s\n", map->f);
+		// printf("%s\n", map->c);
 		int j = 0;
 		printf("rows: %d\n", map->rows);
 		while (j < map->rows)
@@ -84,23 +79,9 @@ int	main(int ac, char **av)
 			printf("%s\n", map->map[j]);
 			j++;
 		}
-		// printf("line 0: (%s) [len=%d]\n", map->map[0], ft_strlen1(map->map[0]));
-		// printf("1: (%c)\n", map->map[0][0]);
-		// printf("line 10: (%s) [len=%d]\n", map->map[10], ft_strlen1(map->map[10]));
-		// printf("2: (%c)\n", map->map[map->rows - 1][ft_strlen1(map->map[map->rows - 1]) - 1]);
-		// int i = 0;
-		// while (i < map->rows)
-		// {
-		// 	printf("%s\n", map->tmp[i]);
-		// 	i++;
-		// }
 	}
 	else
-	{
-		ft_putstr_fd("Error\nInvalid number of arguments!\n", 2);
-		free(map);
-		return (1);
-	}
+		return (ft_putstr_fd("Error\nInvalid number of arguments!\n", 2), 1);
 	free(map);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: htouil <htouil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 19:46:21 by htouil            #+#    #+#             */
-/*   Updated: 2024/01/01 18:58:54 by htouil           ###   ########.fr       */
+/*   Updated: 2024/01/03 17:55:40 by htouil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,8 +110,8 @@ int	check_map_frame2(t_map *map)
 	int	i;
 	int	j;
 
-	j = 0;
-	while (j < map->rows)
+	j = -1;
+	while (++j < map->rows)
 	{
 		i = 0;
 		while (map->map[j][i])
@@ -121,12 +121,15 @@ int	check_map_frame2(t_map *map)
 				if ((map->map[j][i + 1] && map->map[j][i + 1] == ' ')
 				|| (map->map[j][i - 1] && map->map[j][i - 1] == ' ')
 				|| (map->map[j + 1][i] && map->map[j + 1][i] == ' ')
-				|| (map->map[j - 1][i] && map->map[j - 1][i] == ' '))
+				|| (map->map[j - 1][i] && map->map[j - 1][i] == ' ')
+				|| (map->map[j + 1][i + 1] && map->map[j + 1][i + 1] == ' ')
+				|| (map->map[j - 1][i + 1] && map->map[j - 1][i + 1] == ' ')
+				|| (map->map[j + 1][i - 1] && map->map[j + 1][i - 1] == ' ')
+				|| (map->map[j - 1][i - 1] && map->map[j - 1][i - 1] == ' '))
 					return (0);
 			}
 			i++;
 		}
-		j++;
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: htouil <htouil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 20:05:16 by htouil            #+#    #+#             */
-/*   Updated: 2024/01/01 21:34:02 by htouil           ###   ########.fr       */
+/*   Updated: 2024/01/03 00:14:41 by htouil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	display_map_errors(t_map *map)
 	}
 	if (check_map_content(map) == 0)
 	{
-		ft_putstr_fd("Error\nThe map doesn't have all the contents needed!\n", 2);
+		ft_putstr_fd("Error\nThe map doesn't have all the contents \
+or has more contents than needed!\n", 2);
 		free_data(map);
 		exit(1);
 	}

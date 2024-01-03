@@ -6,7 +6,7 @@
 /*   By: htouil <htouil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 18:55:14 by aben-dhi          #+#    #+#             */
-/*   Updated: 2024/01/01 22:12:04 by htouil           ###   ########.fr       */
+/*   Updated: 2024/01/03 17:42:23 by htouil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,13 @@ char	*ft_datacpy(char *src)
 	char	*dst;
 	int		i;
 
-	i = 0;
+	src = src + 2;
 	src = skip_spaces(src);
-	dst = malloc((ft_strlen(src) + 1) * sizeof(char));
+	dst = malloc((ft_strlen(src) - 1 + 1) * sizeof(char));
 	if (!dst)
 		exit(1);
-	while (src[i])
+	i = 0;
+	while (src[i] && src[i] != '\n')
 	{
 		dst[i] = src[i];
 		i++;
@@ -49,6 +50,7 @@ char	*skip_spaces(char *str)
 		str++;
 	return (str);
 }
+
 int	avoid_spaces(char *str)
 {
 	int	pos;
@@ -69,6 +71,13 @@ int	reverse_avoid_spaces(char *str)
 	return (pos);
 }
 
+int	ft_strlcmp(char *s1, char *s2, int n)
+{
+	if ((ft_strncmp(s1, s2, n) == 0) && (*(s1 + n) == ' '))
+		return (0);
+	return (1);
+}
+
 int	check_empty_spaces(char *str)
 {
 	int		i;
@@ -82,10 +91,10 @@ int	check_empty_spaces(char *str)
 		if (str[0] == '\0' || (str[i] != ' ' && str[i] != '\n'))
 		{
 			tmp = skip_spaces(str);
-			if (ft_strncmp(tmp, "NO", 2) == 0 || ft_strncmp(tmp, "SO", 2) == 0
-				|| ft_strncmp(tmp, "WE", 2) == 0
-				|| ft_strncmp(tmp, "EA", 2) == 0
-				|| ft_strncmp(tmp, "F", 1) == 0 || ft_strncmp(tmp, "C", 1) == 0)
+			if (ft_strlcmp(tmp, "NO", 2) == 0 || ft_strlcmp(tmp, "SO", 2) == 0
+				|| ft_strlcmp(tmp, "WE", 2) == 0
+				|| ft_strlcmp(tmp, "EA", 2) == 0
+				|| ft_strlcmp(tmp, "F", 1) == 0 || ft_strlcmp(tmp, "C", 1) == 0)
 				return (2);
 			return (1);
 		}
@@ -93,6 +102,28 @@ int	check_empty_spaces(char *str)
 	}
 	return (0);
 }
+
+// int	check_lines(char *str)
+// {
+// 	char	*tmp;
+
+// 	tmp = skip_spaces(str);
+// 	if (!tmp || tmp[0] == '\0')
+// 		return (2);
+// 	else if (tmp[0] == '\n')
+// 		return (0);
+// 	else
+// 	{
+// 		if (ft_strncmp(tmp, "NO", 2) == 0 || ft_strncmp(tmp, "SO", 2) == 0
+// 			|| ft_strncmp(tmp, "WE", 2) == 0
+// 			|| ft_strncmp(tmp, "EA", 2) == 0
+// 			|| ft_strncmp(tmp, "F", 1) == 0 || ft_strncmp(tmp, "C", 1) == 0)
+// 			return (1);
+// 		else
+// 			return (3);
+// 	}
+// 	return (4);
+// }
 
 int	check_double_nl(char *lmap)
 {

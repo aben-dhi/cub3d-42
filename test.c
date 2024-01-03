@@ -1,5 +1,5 @@
 // #include <stdlib.h>
-#include <mlx.h>
+// #include <mlx.h>
 
 #define WINDOW_columns 600
 #define WINDOW_HEIGHT 300
@@ -53,6 +53,7 @@ int	main(void)
 	if (!line)
 	{
 		printf("shit");
+		free(line);
 		return (1);
 	}
 	while (1)
