@@ -6,13 +6,13 @@
 /*   By: htouil <htouil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 17:33:03 by aben-dhi          #+#    #+#             */
-/*   Updated: 2023/12/30 19:32:54 by htouil           ###   ########.fr       */
+/*   Updated: 2024/01/04 20:04:04 by htouil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-// int check_ext(char *file)
+// int check_extension(char *file)
 // {
 // 	if (ft_strncmp(ft_strrchr(file, '.'), ".cub", 4) == 0)
 // 		return (1);

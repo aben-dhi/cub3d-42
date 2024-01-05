@@ -6,7 +6,7 @@
 /*   By: htouil <htouil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:41:37 by aben-dhi          #+#    #+#             */
-/*   Updated: 2024/01/02 23:37:06 by htouil           ###   ########.fr       */
+/*   Updated: 2024/01/04 21:56:52 by htouil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,16 @@ typedef struct s_map
 
 //cub3d functions:
 void	read_map(int fd, t_map *map);
+int		check_extension(char *file);
 int		check_map_content(t_map *map);
 int		check_map_player(t_map *map);
 int		check_map_frame0(t_map *map);
 int		check_map_frame1(t_map *map);
 int		check_map_frame2(t_map *map);
-void	display_map_errors(t_map *map);
+int		check_textures(t_map *map);
+int		check_rgb(t_map *map);
+void	display_map_errors1(t_map *map);
+void	display_map_errors2(t_map *map);
 
 //utility functions:
 void	*ft_realloc(void *ptr, int size);
@@ -71,5 +75,6 @@ int		reverse_avoid_spaces(char *str);
 int		check_empty_spaces(char *str);
 void	display_dnl_error(char *lmap);
 void	free_data(t_map *map);
+void	free_tmp(char **str);
 
 #endif

@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_data.c                                       :+:      :+:    :+:   */
+/*   check_extensionension.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: htouil <htouil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/03 00:28:53 by htouil            #+#    #+#             */
-/*   Updated: 2024/01/03 00:33:47 by htouil           ###   ########.fr       */
+/*   Created: 2024/01/04 20:01:23 by htouil            #+#    #+#             */
+/*   Updated: 2024/01/04 20:02:28 by htouil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-// int	check_textures(t_map *map)
-// {
-// 	if ()
-// }
+int	check_extension(char *file)
+{
+	char	*ext;
+	int		len;
+
+	ext = ft_strrchr(file, '.');
+	len = ft_strlen1(ext);
+	if (!ext || len != 4 || ext[len - 1] != 'b' || ext[len - 2] != 'u'
+		|| ext[len - 3] != 'c' || ext[len - 4] != '.')
+		return (0);
+	return (1);
+}

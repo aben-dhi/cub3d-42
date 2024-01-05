@@ -6,7 +6,7 @@
 /*   By: htouil <htouil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 18:55:14 by aben-dhi          #+#    #+#             */
-/*   Updated: 2024/01/03 17:42:23 by htouil           ###   ########.fr       */
+/*   Updated: 2024/01/05 20:21:00 by htouil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ char	*ft_datacpy(char *src)
 	char	*dst;
 	int		i;
 
+	if (!src)
+		return (NULL);
 	src = src + 2;
 	src = skip_spaces(src);
 	dst = malloc((ft_strlen(src) - 1 + 1) * sizeof(char));
@@ -41,6 +43,7 @@ char	*ft_datacpy(char *src)
 		i++;
 	}
 	dst[i] = '\0';
+	dst = ft_strtrim(dst, " ");
 	return (dst);
 }
 
@@ -103,28 +106,6 @@ int	check_empty_spaces(char *str)
 	return (0);
 }
 
-// int	check_lines(char *str)
-// {
-// 	char	*tmp;
-
-// 	tmp = skip_spaces(str);
-// 	if (!tmp || tmp[0] == '\0')
-// 		return (2);
-// 	else if (tmp[0] == '\n')
-// 		return (0);
-// 	else
-// 	{
-// 		if (ft_strncmp(tmp, "NO", 2) == 0 || ft_strncmp(tmp, "SO", 2) == 0
-// 			|| ft_strncmp(tmp, "WE", 2) == 0
-// 			|| ft_strncmp(tmp, "EA", 2) == 0
-// 			|| ft_strncmp(tmp, "F", 1) == 0 || ft_strncmp(tmp, "C", 1) == 0)
-// 			return (1);
-// 		else
-// 			return (3);
-// 	}
-// 	return (4);
-// }
-
 int	check_double_nl(char *lmap)
 {
 	int		i;
@@ -178,4 +159,19 @@ void	free_data(t_map *map)
 		free(map->f);
 	if (map->c)
 		free(map->c);
+	free(map);
+}
+
+void	free_tmp(char **str)
+{
+	int	j;
+
+	j = 0;
+	while (str[j])
+	{
+		if (str[j])
+			free(str[j]);
+		j++;
+	}
+	free(str);
 }

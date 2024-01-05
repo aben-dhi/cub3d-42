@@ -6,7 +6,7 @@
 /*   By: htouil <htouil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:42:06 by aben-dhi          #+#    #+#             */
-/*   Updated: 2024/01/03 17:55:03 by htouil           ###   ########.fr       */
+/*   Updated: 2024/01/04 21:02:19 by htouil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,50 +35,52 @@ void	init_params(t_map *map)
 	map->posy = 1;
 }
 
-int	check_ext(char *file)
+int	setup_game_data(char **av, t_map *map)
 {
-	char	*ext;
+	int		fd;
 
-	ext = ft_strrchr(file, '.');
-	if (!ext || ft_strncmp(ext, ".cub", 4) != 0)
-		return (1);
+	if (check_extension(av[1]) == 0)
+	{
+		free(map);
+		return (ft_putstr_fd("Error\nInvalid file extension!\n", 2), 1);
+	}
+	init_params(map);
+	fd = open(av[1], O_RDONLY);
+	if (fd == -1)
+	{
+		free(map);
+		return (ft_putstr_fd("Error\nInvalid file!\n", 2), 1);
+	}
+	read_map(fd, map);
+	display_map_errors1(map);
+	display_map_errors2(map);
+	printf("%s\n", map->no);
+	printf("%s\n", map->so);
+	printf("%s\n", map->we);
+	printf("%s\n", map->ea);
+	printf("%s\n", map->f);
+	printf("%s\n", map->c);
+	// int j = 0;
+	// printf("rows: %d\n", map->rows);
+	// while (j < map->rows)
+	// {
+	// 	printf("%s\n", map->map[j]);
+	// 	j++;
+	// }
 	return (0);
 }
 
 int	main(int ac, char **av)
 {
 	t_map	*map;
-	int		fd;
 
 	if (ac == 2)
 	{
 		map = malloc(sizeof(t_map));
 		if (!map)
 			return (1);
-		if (check_ext(av[1]))
-		{
-			free(map);
-			return (ft_putstr_fd("Error\nInvalid file extension!\n", 2), 1);
-		}
-		init_params(map);
-		fd = open(av[1], O_RDONLY);
-		if (fd == -1)
+		if (setup_game_data(av, map) == 1)
 			return (1);
-		read_map(fd, map);
-		display_map_errors(map);
-		// printf("%s\n", map->no);
-		// printf("%s\n", map->so);
-		// printf("%s\n", map->we);
-		// printf("%s\n", map->ea);
-		// printf("%s\n", map->f);
-		// printf("%s\n", map->c);
-		int j = 0;
-		printf("rows: %d\n", map->rows);
-		while (j < map->rows)
-		{
-			printf("%s\n", map->map[j]);
-			j++;
-		}
 	}
 	else
 		return (ft_putstr_fd("Error\nInvalid number of arguments!\n", 2), 1);

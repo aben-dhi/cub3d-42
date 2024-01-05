@@ -1,11 +1,7 @@
-NO textures/box.xpm
-SO textures/box.xpm
-WE textures/box.xpm
-EEA ./textures/greystone.xpm
+NO textures/1.xpm
+SO textures/2.xpm
+WE textures/3.xpm
+EA textures/4.xpm
  
-F 255,125,0
 C 0,125,255
-
-1111
-10N1
-1111
+F 255,125,0
