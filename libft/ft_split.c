@@ -3,88 +3,65 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aben-dhi <aben-dhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: htouil <htouil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 17:48:23 by aben-dhi          #+#    #+#             */
-/*   Updated: 2023/12/20 15:51:04 by aben-dhi         ###   ########.fr       */
+/*   Updated: 2024/01/07 19:55:25 by htouil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	charsep(char c, char sep)
+int	count_it(char *str, char occ)
 {
 	int	i;
+	int	counter;
 
 	i = 0;
-	if (c == sep || c == '\0')
-		return (1);
-	return (0);
-}
-
-static void	write_w(char *dest, char *from, char sep)
-{
-	int	i;
-
-	i = 0;
-	while (charsep(from[i], sep) == 0)
+	counter = 0;
+	while (str[i])
 	{
-		dest[i] = from[i];
+		if (str[i] != occ && (str[i + 1] == occ || str[i + 1] == '\0'))
+			counter++;
 		i++;
 	}
-	dest[i] = '\0';
+	return (counter);
 }
 
-static void	*write_s(char **split, char *str, char sep)
+void	free_it(char **str, int d)
 {
-	int	i;
-	int	j;
-	int	word;
-
-	word = 0;
-	i = 0;
-	while (str[i] != '\0')
+	while (d)
 	{
-		if (charsep(str[i], sep) == 1)
-			i++;
-		else
-		{
-			j = 0;
-			while (charsep(str[i + j], sep) == 0)
-				j++;
-			split[word] = (char *)malloc(sizeof(char) * (j + 1));
-			if (split[word] == NULL)
-				return (0);
-			write_w(split[word++], str + i, sep);
-			i += j;
-		}
+		free(str[d]);
+		d--;
 	}
-	return ((void *)1);
+	free(str);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(const char *s, char c)
 {
-	char	*str;
-	int		index;
-	char	**split;
+	char	**arr;
 	int		i;
+	int		j;
+	int		pos;
 
 	if (!s)
-		return (0);
-	str = (char *)s;
+		return (NULL);
+	arr = (char **)malloc((count_it((char *)s, c) + 1) * sizeof(char *));
+	if (arr == NULL)
+		return (NULL);
 	i = 0;
-	index = 0;
-	while (str[i] != '\0')
+	pos = -1;
+	while (++pos < count_it((char *)s, c))
 	{
-		if (charsep(str[i + 1], c) == 1 && charsep(str[i], c) == 0)
-			index++;
-		i++;
+		while (s[i] && s[i] == c)
+			i++;
+		j = i;
+		while (s[i] != c && s[i] != '\0')
+			i++;
+		arr[pos] = ft_substr(s, j, i - j);
+		if (!arr[pos])
+			return (free_it(arr, pos), NULL);
 	}
-	split = (char **)malloc(sizeof(char *) * (index + 1));
-	if (split == NULL)
-		return (NULL);
-	split[index] = 0;
-	if (write_s(split, str, c) == NULL)
-		return (NULL);
-	return (split);
+	return (arr[pos] = NULL, arr);
 }

@@ -1,7 +1,7 @@
-NO textures/north.xpm
-SO textures/north.xpm
-WE textures/plastic.xpm
-EA textures/plastic.xpm
+NO textures/1.png
+SO textures/2.png
+WE textures/3.png
+EA textures/4.png
 
 F 255,0,0
 C 0,0,255

@@ -3,40 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aben-dhi <aben-dhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: htouil <htouil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 19:20:54 by aben-dhi          #+#    #+#             */
-/*   Updated: 2022/10/27 23:33:31 by aben-dhi         ###   ########.fr       */
+/*   Updated: 2024/01/07 19:56:22 by htouil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(const char *s, unsigned int start, size_t len)
 {
+	char	*ss;
 	size_t	i;
-	char	*sub;
 
 	i = 0;
 	if (!s)
-		return (NULL);
-	if (ft_strlen(s) < start)
+		return (0);
+	if (start > ft_strlen(s))
 	{
-		sub = malloc(sizeof(char));
-		if (sub == NULL)
-			return (NULL);
-		sub[0] = '\0';
+		ss = malloc(sizeof(char));
+		if (!ss)
+			return (0);
+		ss[i] = '\0';
 	}
 	else
 	{
 		if (start + len > ft_strlen(s))
 			len = ft_strlen(s) - start;
-		sub = malloc(sizeof(char) * (len + 1));
-		if (sub == NULL)
-			return (NULL);
-		while (++i - 1 < len)
-			*(sub + i - 1) = *(s + start + i - 1);
-		*(sub + i - 1) = '\0';
+		ss = malloc((len + 1) * sizeof(char));
+		if (!ss)
+			return (0);
+		while (i++ < len)
+			*(ss + i - 1) = *(s + start + i - 1);
+		*(ss + i - 1) = '\0';
 	}
-	return (sub);
+	return (ss);
 }

@@ -6,7 +6,7 @@
 /*   By: htouil <htouil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:42:06 by aben-dhi          #+#    #+#             */
-/*   Updated: 2024/01/04 21:02:19 by htouil           ###   ########.fr       */
+/*   Updated: 2024/01/07 18:52:37 by htouil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,25 @@ int	main(int ac, char **av)
 		if (!map)
 			return (1);
 		if (setup_game_data(av, map) == 1)
+		{
+			system("leaks cub3D");
 			return (1);
+		}
 	}
 	else
 		return (ft_putstr_fd("Error\nInvalid number of arguments!\n", 2), 1);
-	free(map);
+	free_data(map);
+	system("leaks --fullContent cub3D");
+	// while (1);
+	// system("leaks --trace=0x7fe8be40e200 cub3D");
 	return (0);
 }
+
+// int main(int ac, char **av)
+// {
+// 	main1(ac, av);
+// 	system(leaks cub3D)
+// }
 
 // int	main(void)
 // {

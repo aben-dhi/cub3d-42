@@ -6,7 +6,7 @@
 /*   By: htouil <htouil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 20:05:16 by htouil            #+#    #+#             */
-/*   Updated: 2024/01/04 21:57:20 by htouil           ###   ########.fr       */
+/*   Updated: 2024/01/07 18:11:29 by htouil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	display_map_errors1(t_map *map)
 	{
 		ft_putstr_fd("Error\nThe map is not fully surrounded with walls!\n", 2);
 		free_data(map);
+		system("leaks cub3D");
 		exit(1);
 	}
 	if (check_map_content(map) == 0)
@@ -26,12 +27,14 @@ void	display_map_errors1(t_map *map)
 		ft_putstr_fd("Error\nThe map lacks \
 		or has more contents than needed!\n", 2);
 		free_data(map);
+		system("leaks cub3D");
 		exit(1);
 	}
 	if (check_map_player(map) == 0)
 	{
 		ft_putstr_fd("Error\nThe map doesn't have one and one player only!\n", 2);
 		free_data(map);
+		system("leaks cub3D");
 		exit(1);
 	}
 }
@@ -42,12 +45,14 @@ void	display_map_errors2(t_map *map)
 	{
 		ft_putstr_fd("Error\nInvalid textures!\n", 2);
 		free_data(map);
+		system("leaks cub3D");
 		exit(1);
 	}
 	if (check_rgb(map) == 0)
 	{
 		ft_putstr_fd("Error\nInvalid RGB!\n", 2);
 		free_data(map);
+		system("leaks cub3D");
 		exit(1);
 	}
 }

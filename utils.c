@@ -6,7 +6,7 @@
 /*   By: htouil <htouil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 18:55:14 by aben-dhi          #+#    #+#             */
-/*   Updated: 2024/01/05 20:21:00 by htouil           ###   ########.fr       */
+/*   Updated: 2024/01/07 20:08:08 by htouil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,23 +27,28 @@ void	*ft_realloc(void *ptr, int size)
 char	*ft_datacpy(char *src)
 {
 	char	*dst;
+	char	*tmp;
 	int		i;
 
 	if (!src)
 		return (NULL);
 	src = src + 2;
-	src = skip_spaces(src);
-	dst = malloc((ft_strlen(src) - 1 + 1) * sizeof(char));
-	if (!dst)
+	i = 0;
+	while (src[i] == ' ') //hmm???
+		i++;
+	tmp = malloc((ft_strlen(src) - i + 1) * sizeof(char));
+	if (!tmp)
 		exit(1);
 	i = 0;
 	while (src[i] && src[i] != '\n')
 	{
-		dst[i] = src[i];
+		tmp[i] = src[i];
 		i++;
 	}
-	dst[i] = '\0';
-	dst = ft_strtrim(dst, " ");
+	tmp[i] = '\0';
+	src = src - 2; //hmm???
+	dst = ft_strtrim(tmp, "\n ");
+	free(tmp);
 	return (dst);
 }
 
@@ -131,6 +136,7 @@ void	display_dnl_error(char *lmap)
 	{
 		ft_putstr_fd("Error\nThe map is not fully surrounded with walls!!!\n", 2);
 		free(lmap);
+		system("leaks cub3D");
 		exit(1);
 	}
 }
@@ -146,7 +152,8 @@ void	free_data(t_map *map)
 			free(map->map[j]);
 		j++;
 	}
-	free(map->map);
+	if (map->map)
+		free(map->map);
 	if (map->no)
 		free(map->no);
 	if (map->so)
@@ -159,6 +166,8 @@ void	free_data(t_map *map)
 		free(map->f);
 	if (map->c)
 		free(map->c);
+	if (map->columns)
+		free(map->columns);
 	free(map);
 }
 

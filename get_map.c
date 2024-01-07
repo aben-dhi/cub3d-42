@@ -6,7 +6,7 @@
 /*   By: htouil <htouil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 19:32:06 by htouil            #+#    #+#             */
-/*   Updated: 2024/01/05 20:13:10 by htouil           ###   ########.fr       */
+/*   Updated: 2024/01/07 20:06:18 by htouil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	associate_infos(char *line, t_map *map)
 	char	*tmp;
 
 	tmp = skip_spaces(line);
+	// printf("salam: (%s)\n", line);
 	if (ft_strncmp(tmp, "NO", 2) == 0)
 		map->no = ft_datacpy(tmp);
 	else if (ft_strncmp(tmp, "SO", 2) == 0)
@@ -41,6 +42,8 @@ int	get_map_matrix(int fd, char *line, t_map *map)
 		return (-1);
 	while (1)
 	{
+		// if (!line)
+		// 	printf("khawi\n");
 		map_str = ft_strjoin(map_str, line);
 		map->rows++;
 		free(line);
@@ -57,12 +60,13 @@ int	get_map_matrix(int fd, char *line, t_map *map)
 	}
 	free(map_str);
 	close(fd);
+	// printf("salam\n");
 	return (0);
 }
 
 // void	read_map_helper(int flag, char *line)
 // {
-	
+
 // }
 
 void	read_map(int fd, t_map *map)
@@ -75,22 +79,27 @@ void	read_map(int fd, t_map *map)
 	if (!line)
 	{
 		ft_putstr_fd("Error\nFile is empty!\n", 2);
-		exit (1);
+		system("leaks cub3D");
+		exit(1);
 	}
 	while (1)
 	{
+		// printf("ZEBBI\nline: %s", line);
 		if (!line)
 		{
 			ft_putstr_fd("Error\nFile incomplet!\n", 2);
 			free(line);
+			free_data(map);
+			system("leaks cub3D");
 			exit(1);
 		}
 		if (flag == 6 && check_empty_spaces(line) == 1)
 			break ;
-		if (flag < 6 && check_empty_spaces(line) == 1)
+		if (flag <= 6 && check_empty_spaces(line) == 1)
 		{
 			ft_putstr_fd("Error\nInvalid file content!\n", 2);
 			free(line);
+			system("leaks cub3D");
 			exit(1);
 		}
 		if (check_empty_spaces(line) == 0)
@@ -100,6 +109,7 @@ void	read_map(int fd, t_map *map)
 			continue ;
 		}
 		flag += associate_infos(line, map);
+		// printf("flag: %d\n\n", flag);
 		free(line);
 		line = get_next_line(fd);
 	}
