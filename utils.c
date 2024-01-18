@@ -6,7 +6,7 @@
 /*   By: htouil <htouil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 18:55:14 by aben-dhi          #+#    #+#             */
-/*   Updated: 2024/01/07 20:08:08 by htouil           ###   ########.fr       */
+/*   Updated: 2024/01/16 20:05:09 by htouil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,29 +24,31 @@ void	*ft_realloc(void *ptr, int size)
 	return (res);
 }
 
-char	*ft_datacpy(char *src)
+char	*ft_datacpy(char *src, int n)
 {
 	char	*dst;
 	char	*tmp;
 	int		i;
+	int		j;
 
 	if (!src)
 		return (NULL);
-	src = src + 2;
-	i = 0;
-	while (src[i] == ' ') //hmm???
+	// src = src + 2;
+	i = n;
+	while (src[i] == ' ' || src[i] == '\t') //hmm???
 		i++;
-	tmp = malloc((ft_strlen(src) - i + 1) * sizeof(char));
+	tmp = malloc((ft_strlen1(src) - i + 1) * sizeof(char));
 	if (!tmp)
 		exit(1);
-	i = 0;
-	while (src[i] && src[i] != '\n')
+	j = 0;
+	while (src[i] != '\0' && src[i] != '\n')
 	{
-		tmp[i] = src[i];
+		tmp[j] = src[i];
 		i++;
+		j++;
 	}
-	tmp[i] = '\0';
-	src = src - 2; //hmm???
+	tmp[j] = '\0';
+	// src = src - 2; //hmm???
 	dst = ft_strtrim(tmp, "\n ");
 	free(tmp);
 	return (dst);
@@ -54,7 +56,7 @@ char	*ft_datacpy(char *src)
 
 char	*skip_spaces(char *str)
 {
-	while (*str && *str == ' ')
+	while (*str && (*str == ' ' || *str == '\t'))
 		str++;
 	return (str);
 }
@@ -64,7 +66,7 @@ int	avoid_spaces(char *str)
 	int	pos;
 
 	pos = 0;
-	while (str[pos] && str[pos] == ' ')
+	while (str[pos] && (str[pos] == ' ' || str[pos] == '\t'))
 		pos++;
 	return (pos);
 }
@@ -74,14 +76,14 @@ int	reverse_avoid_spaces(char *str)
 	int	pos;
 
 	pos = ft_strlen1(str) - 1;
-	while (str[pos] && str[pos] == ' ')
+	while (str[pos] && (str[pos] == ' ' || str[pos] == '\t'))
 		pos--;
 	return (pos);
 }
 
 int	ft_strlcmp(char *s1, char *s2, int n)
 {
-	if ((ft_strncmp(s1, s2, n) == 0) && (*(s1 + n) == ' '))
+	if (ft_strncmp(s1, s2, n) == 0)
 		return (0);
 	return (1);
 }
@@ -96,9 +98,10 @@ int	check_empty_spaces(char *str)
 		return (0);
 	while (str[i])
 	{
-		if (str[0] == '\0' || (str[i] != ' ' && str[i] != '\n'))
+		if (str[0] == '\0' || (str[i] != ' ' && str[i] != '\t' && str[i] != '\n'))
 		{
-			tmp = skip_spaces(str);
+			tmp = str;
+			tmp = skip_spaces(tmp);
 			if (ft_strlcmp(tmp, "NO", 2) == 0 || ft_strlcmp(tmp, "SO", 2) == 0
 				|| ft_strlcmp(tmp, "WE", 2) == 0
 				|| ft_strlcmp(tmp, "EA", 2) == 0
@@ -114,16 +117,25 @@ int	check_empty_spaces(char *str)
 int	check_double_nl(char *lmap)
 {
 	int		i;
-	char	*tmp;
 
 	i = 0;
-	while (lmap[i] && lmap[i + 1])
+	while (lmap[i] != '\0')
 	{
 		if (lmap[i] == '\n')
 		{
-			tmp = skip_spaces(&lmap[i + 1]);
-			if (tmp[0] == '\n')
-				return (1);
+			i++;
+			while (lmap[i] != '\0' && (lmap[i] == ' ' || lmap[i] == '\t'))
+				i++;
+			if (lmap[i] == '\0')
+				return (0);
+			else if (lmap[i] == '\n')
+			{
+				i++;
+				while (lmap[i] != '\0' && (lmap[i] == ' ' || lmap[i] == '\t'))
+					i++;
+				if (lmap[i] == '\0' || lmap[i] == '\n')
+					return (1);
+			}
 		}
 		i++;
 	}
@@ -134,9 +146,10 @@ void	display_dnl_error(char *lmap)
 {
 	if (check_double_nl(lmap) == 1)
 	{
-		ft_putstr_fd("Error\nThe map is not fully surrounded with walls!!!\n", 2);
+		ft_putstr_fd("Error\nThe map is invalid!\n", 2);
 		free(lmap);
-		system("leaks cub3D");
+		// while (1);
+		// system("leaks cub3D");
 		exit(1);
 	}
 }

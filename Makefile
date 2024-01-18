@@ -18,7 +18,7 @@ OBJS	= $(SRCS:.c=.o) $(LIBFTSRC:.c=.o)  $(GNLSRC:.c=.o) #$(MLXSRC:.c=.o)
 
 CC		= cc
 
-FLAGS	= -Wall -Wextra -Werror #-fsanitize=address -g
+FLAGS	= -Wall -Wextra -Werror -fsanitize=address -g
 
 MLX		= -lmlx -framework OpenGL -framework AppKit #-fsanitize=address -g
 
@@ -30,7 +30,7 @@ all: $(NAME)
 	$(CC) $(FLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
-	$(CC) $(MLX) $(OBJS) -o $(NAME)
+	$(CC) $(FLAGS) $(OBJS) -o $(NAME)
 
 clean: 
 	rm -f $(OBJS)

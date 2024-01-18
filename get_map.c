@@ -6,7 +6,7 @@
 /*   By: htouil <htouil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 19:32:06 by htouil            #+#    #+#             */
-/*   Updated: 2024/01/07 20:06:18 by htouil           ###   ########.fr       */
+/*   Updated: 2024/01/13 22:01:42 by htouil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,27 @@ int	associate_infos(char *line, t_map *map)
 	char	*tmp;
 
 	tmp = skip_spaces(line);
-	// printf("salam: (%s)\n", line);
+	// printf("line: (%s)\n", line);
 	if (ft_strncmp(tmp, "NO", 2) == 0)
-		map->no = ft_datacpy(tmp);
+		map->no = ft_datacpy(tmp, 2);
 	else if (ft_strncmp(tmp, "SO", 2) == 0)
-		map->so = ft_datacpy(tmp);
+		map->so = ft_datacpy(tmp, 2);
 	else if (ft_strncmp(tmp, "WE", 2) == 0)
-		map->we = ft_datacpy(tmp);
+		map->we = ft_datacpy(tmp, 2);
 	else if (ft_strncmp(tmp, "EA", 2) == 0)
-		map->ea = ft_datacpy(tmp);
+		map->ea = ft_datacpy(tmp, 2);
 	else if (ft_strncmp(tmp, "F", 1) == 0)
-		map->f = ft_datacpy(tmp);
+		map->f = ft_datacpy(tmp, 1);
 	else if (ft_strncmp(tmp, "C", 1) == 0)
-		map->c = ft_datacpy(tmp);
+		map->c = ft_datacpy(tmp, 1);
+	// printf("no: [%s]\n", map->no);
 	return (1);
 }
 
 int	get_map_matrix(int fd, char *line, t_map *map)
 {
 	char	*map_str;
+	char	*tmp_str;
 
 	map_str = ft_calloc(1, 1);
 	if (!map_str)
@@ -44,13 +46,16 @@ int	get_map_matrix(int fd, char *line, t_map *map)
 	{
 		// if (!line)
 		// 	printf("khawi\n");
+		tmp_str = map_str;
 		map_str = ft_strjoin(map_str, line);
+		free(tmp_str);
 		map->rows++;
 		free(line);
 		line = get_next_line(fd);
 		if (!line)
 			break ;
 	}
+	// printf("lmap: [%s](%d)\n", map_str, ft_strlen1(map_str));
 	display_dnl_error(map_str);
 	map->map = ft_split(map_str, '\n');
 	if (check_empty_spaces(map->map[map->rows - 1]) == 0)
@@ -79,18 +84,20 @@ void	read_map(int fd, t_map *map)
 	if (!line)
 	{
 		ft_putstr_fd("Error\nFile is empty!\n", 2);
-		system("leaks cub3D");
+		// system("leaks cub3D");
 		exit(1);
 	}
 	while (1)
 	{
-		// printf("ZEBBI\nline: %s", line);
+		// printf("ZEBBI\nline: [%s]\n", line);
 		if (!line)
 		{
+			// printf("line : [%s]\n", line);
 			ft_putstr_fd("Error\nFile incomplet!\n", 2);
+			// ft_putstr_fd("Error\nInvalid file content!\n", 2);
 			free(line);
 			free_data(map);
-			system("leaks cub3D");
+			// system("leaks cub3D");
 			exit(1);
 		}
 		if (flag == 6 && check_empty_spaces(line) == 1)
@@ -99,7 +106,8 @@ void	read_map(int fd, t_map *map)
 		{
 			ft_putstr_fd("Error\nInvalid file content!\n", 2);
 			free(line);
-			system("leaks cub3D");
+			free_data(map);
+			// system("leaks cub3D");
 			exit(1);
 		}
 		if (check_empty_spaces(line) == 0)

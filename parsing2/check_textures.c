@@ -6,7 +6,7 @@
 /*   By: htouil <htouil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 00:28:53 by htouil            #+#    #+#             */
-/*   Updated: 2024/01/07 18:58:03 by htouil           ###   ########.fr       */
+/*   Updated: 2024/01/12 17:40:58 by htouil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,11 @@ int	check_ea(t_map *map)
 
 int	check_textures(t_map *map)
 {
+	if (!map->no || !map->so || !map->we || !map->ea)
+		return (0);
+	if (map->no[0] == '\0' || map->so[0] == '\0'
+		|| map->we[0] == '\0' || map->ea[0] == '\0')
+		return (0);
 	if (check_no(map) == 0 || check_so(map) == 0
 		|| check_we(map) == 0 || check_ea(map) == 0)
 		return (0);

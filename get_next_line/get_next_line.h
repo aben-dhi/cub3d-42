@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aben-dhi <aben-dhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: htouil <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/23 23:11:00 by aben-dhi          #+#    #+#             */
-/*   Updated: 2023/12/01 16:33:17 by aben-dhi         ###   ########.fr       */
+/*   Created: 2023/02/27 22:03:04 by htouil            #+#    #+#             */
+/*   Updated: 2023/03/05 18:44:12 by htouil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,19 @@
 
 # include <unistd.h>
 # include <fcntl.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <string.h>
 # include <stdio.h>
+# include <stdlib.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1000
+#  define BUFFER_SIZE 10
 # endif
 
 char	*get_next_line(int fd);
-char	*ft_read(int fd, char *left_str);
-char	*ft_strchr1(char *s, int c);
-char	*ft_strjoin1(char *left_str, char *buff);
-int		ft_strlen1(char *s);
-char	*ft_get_line(char *left_str);
-char	*ft_new_str(char *left_str);
+char	*ft_read(int fd, char *cell);
+char	*get_one_line(char *cell);
+char	*get_new_line(char *cell);
+char	*ft_strjoin1(char *str1, char *str2);
+int		ft_strlen1(char *str);
+int		ft_strchr1(char *searched);
 
 #endif

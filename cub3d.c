@@ -6,7 +6,7 @@
 /*   By: htouil <htouil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:42:06 by aben-dhi          #+#    #+#             */
-/*   Updated: 2024/01/07 18:52:37 by htouil           ###   ########.fr       */
+/*   Updated: 2024/01/16 19:58:38 by htouil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,13 @@ int	setup_game_data(char **av, t_map *map)
 	read_map(fd, map);
 	display_map_errors1(map);
 	display_map_errors2(map);
-	printf("%s\n", map->no);
-	printf("%s\n", map->so);
-	printf("%s\n", map->we);
-	printf("%s\n", map->ea);
-	printf("%s\n", map->f);
-	printf("%s\n", map->c);
+	printf("ALL GOOD!!!\n");
+	// printf("%s\n", map->no);
+	// printf("%s\n", map->so);
+	// printf("%s\n", map->we);
+	// printf("%s\n", map->ea);
+	// printf("%s\n", map->f);
+	// printf("%s\n", map->c);
 	// int j = 0;
 	// printf("rows: %d\n", map->rows);
 	// while (j < map->rows)
@@ -70,6 +71,7 @@ int	setup_game_data(char **av, t_map *map)
 	return (0);
 }
 
+//now in test rgb 20//
 int	main(int ac, char **av)
 {
 	t_map	*map;
@@ -81,14 +83,14 @@ int	main(int ac, char **av)
 			return (1);
 		if (setup_game_data(av, map) == 1)
 		{
-			system("leaks cub3D");
+			// system("leaks cub3D");
 			return (1);
 		}
 	}
 	else
 		return (ft_putstr_fd("Error\nInvalid number of arguments!\n", 2), 1);
 	free_data(map);
-	system("leaks --fullContent cub3D");
+	// system("leaks --fullContent cub3D");
 	// while (1);
 	// system("leaks --trace=0x7fe8be40e200 cub3D");
 	return (0);

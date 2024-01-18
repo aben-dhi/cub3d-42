@@ -13,7 +13,7 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include <mlx.h>
+// # include <mlx.h>.
 # include "libft/libft.h"
 # include "get_next_line/get_next_line.h"
 # include <math.h>
@@ -68,7 +68,7 @@ void	display_map_errors2(t_map *map);
 
 //utility functions:
 void	*ft_realloc(void *ptr, int size);
-char	*ft_datacpy(char *src);
+char	*ft_datacpy(char *src, int n);
 char	*skip_spaces(char *str);
 int		avoid_spaces(char *str);
 int		reverse_avoid_spaces(char *str);

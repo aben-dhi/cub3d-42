@@ -59,11 +59,9 @@ char	*ft_itoa(int n)
 	char	*str;
 	long	nb;
 	int		i;
-	int		j;
 
 	nb = n;
 	i = length(nb);
-	j = i;
 	str = (char *)malloc(sizeof(char) * (i + 1));
 	if (!str)
 		return (NULL);

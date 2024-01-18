@@ -3,51 +3,161 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: htouil <htouil@student.42.fr>              +#+  +:+       +#+        */
+/*   By: htouil <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/05 19:15:41 by aben-dhi          #+#    #+#             */
-/*   Updated: 2023/12/26 22:47:40 by htouil           ###   ########.fr       */
+/*   Created: 2023/02/27 16:57:34 by htouil            #+#    #+#             */
+/*   Updated: 2023/03/13 16:56:27 by htouil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_read(int fd, char *left_str)
+char	*ft_read(int fd, char *cell)
 {
-	char	*buff;
-	int		rd_bytes;
+	char	*buffer;
+	// char	*tmp;
+	int		rd;
 
-	buff = malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (!buff)
+	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!buffer)
 		return (NULL);
-	rd_bytes = 1;
-	while (!ft_strchr1(left_str, '\n') && rd_bytes != 0)
+	rd = 1;
+	while (ft_strchr1(cell) == 0 && rd != 0)
 	{
-		rd_bytes = read(fd, buff, BUFFER_SIZE);
-		if (rd_bytes == -1)
+		rd = read(fd, buffer, BUFFER_SIZE);
+		if (rd == -1 || (rd == 0 && !cell))
 		{
-			free(buff);
-			free (left_str);
+			free(buffer);
+			if (cell)
+				free(cell);
 			return (NULL);
 		}
-		buff[rd_bytes] = '\0';
-		left_str = ft_strjoin1(left_str, buff);
+		buffer[rd] = '\0';
+		// tmp = cell;
+		cell = ft_strjoin1(cell, buffer);
+		// free(tmp);
 	}
-	free(buff);
-	return (left_str);
+	free (buffer);
+	return (cell);
+}
+
+char	*get_one_line(char *cell)
+{
+	int		i;
+	char	*tmp;
+
+	i = 0;
+	if (!cell[i])
+		return (NULL);
+	while (cell[i] != '\0' && cell[i] != '\n')
+		i++;
+	if (ft_strchr1(cell) == 1)
+		tmp = malloc((i + 2) * sizeof(char));
+	else
+		tmp = malloc((i + 1) * sizeof(char));
+	if (!tmp)
+		return (NULL);
+	i = 0;
+	while (cell[i] != '\0' && cell[i] != '\n')
+	{
+		tmp[i] = cell[i];
+		i++;
+	}
+	if (cell[i] == '\n')
+		tmp[i++] = '\n';
+	tmp[i] = '\0';
+	return (tmp);
+}
+
+char	*get_new_line(char *cell)
+{
+	int		i;
+	int		j;
+	char	*new;
+
+	i = 0;
+	if (cell[i] == '\0')
+	{
+		free (cell);
+		return (NULL);
+	}
+	while (cell[i] != '\0' && cell[i] != '\n')
+		i++;
+	if (cell[i] == '\n')
+		new = malloc((ft_strlen1(cell) - i++) * sizeof(char));
+	else
+		new = malloc((1) * sizeof(char));
+	if (!new)
+		return (NULL);
+	j = 0;
+	while (cell[i] != '\0')
+		new[j++] = cell[i++];
+	new[j] = '\0';
+	free(cell);
+	return (new);
 }
 
 char	*get_next_line(int fd)
 {
-	char		*line;
-	static char	*left_str;
+	static char	*cell;
+	char		*one_line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (0);
-	left_str = ft_read(fd, left_str);
-	if (!left_str)
+	if (fd < 0 || BUFFER_SIZE < 0)
 		return (NULL);
-	line = ft_get_line(left_str);
-	left_str = ft_new_str(left_str);
-	return (line);
+	cell = ft_read(fd, cell);
+	if (!cell)
+		return (NULL);
+	one_line = get_one_line(cell);
+	// printf("-----------------------\n");
+	// printf("old cell: [%s]\n", cell);
+	cell = get_new_line(cell);
+	// printf("new cell: [%s]\n", cell);
+	// printf("-----------------------\n");
+	return (one_line);
 }
+
+// int main()
+// {
+//     int     fd;
+//     char    *result; 
+//     fd = open("./testfiles/multiple_lines_with_nl.txt", O_RDONLY);
+//     result = get_next_line(fd);
+//     printf("line 1: %s", result);
+//     // result = get_next_line(fd);
+//     // printf("line 2: %s", result);
+//     // result = get_next_line(fd);
+//     // printf("line 3: %s", result);
+// 	// result = get_next_line(fd);
+//     // printf("line 4: %s", result);
+// 	// result = get_next_line(fd);
+//     // printf("line 5: %s", result);
+// 	// result = get_next_line(fd);
+//     // printf("line 6: %s", result);
+//     close(fd);
+//     return (0);
+// }
+
+// int	main()
+// {
+// 	int		fd;
+// 	int		i;
+// 	int		j;
+// 	char	*result;
+
+// 	fd = open("./testfiles/multiple_lines_with_nl.txt", O_RDONLY);
+// 	i = 1;
+// 	j = 1;
+// 	while (i == 1)
+// 	{
+// 		result = get_next_line(fd);
+// 		if (result == NULL)
+// 			i = 0;
+// 		else
+// 		{
+// 			printf("line %d from file %d: %s", j, fd, result);
+// 			j++;
+// 		}
+// 	}
+// 	close (fd);
+// 	return (0);
+// }
